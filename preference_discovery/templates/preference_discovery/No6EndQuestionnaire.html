@@ -1,37 +1,29 @@
 {% extends "global/Page.html" %}
-{% load staticfiles otree %}
+{% load otree static %}
 
 {% block title %}
-    Kuesioner
+    Kuisioner
 {% endblock %}
 
 {% block content %}
 
-    <div class="instructions" style="text-align:center">
-    <b>
-        Terima kasih telah berpartisipasi dalam eksperimen ini. Kami mohon kesediaannya untuk mengisi kuesioner yang telah disediakan.
-        Peneliti menjamin kerahasiaan seluruh data pribadi Anda, seluruh data yang dikumpulkan hanya digunakan untuk tujuan studi semata.
-    </b>
-    </div>
-     <table class="table">
-    {% for field in form %}
-        <tr>
-            <td>
-                {{ field.label }}
-            </td>
-            <td align="right">
-                {{ field }}
-            </td>
-        </tr>
-    {% endfor %}
-    </table>
-    <hr>
-    {% next_button %}
-
-    <div class="progress" style="height: 30px;">
-    <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress|json}}%; text-align:center">
-    <span style="font-size:12pt;">{{ progress|floatformat:0 }}%</span>
-    </div>
-    </div>
-
+    Terima kasih telah berpartisipasi pada eksperimen ini. Kami mohon kesediaannya untuk mengisi data pada link berikut ini.
+    <br>
+    <br>
+Anda akan mendapatkan informasi mengenai poin yang Anda kumpulkan pada halaman berikutnya seusai mengisi formulir berikut.
+    <br>
+    <br>
+    Peneliti menjamin kerahasiaan seluruh data pribadi Anda. Seluruh data yang dikumpulkan hanya digunakan untuk tujuan
+studi semata.
+    <br>
+    <br>
+    {% formfields %}
+    <br>
+    <br>
+    Tekan tombol 'Lanjut' untuk masuk ke halaman berikutnya.
+    <br>
+    <br>
+    <button class="otree-btn-next btn btn-primary next-button otree-next-button">Lanjut</button>
 {% endblock %}
+
+
