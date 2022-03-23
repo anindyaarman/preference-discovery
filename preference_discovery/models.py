@@ -19,6 +19,7 @@ doc = """
 Adaptation of Preference Discovery by Delaney, Jacobson and Moenig (2018) for risk preference discovery.
 """
 
+
 class Constants(BaseConstants):
     name_in_url = 'preference_discovery_v2'
     players_per_group = None
@@ -57,10 +58,12 @@ class Player(BasePlayer):
         set3 = Constants.prospects[Constants.prospects['Game_Type'] == "Block_3"]
         orgnl_sequence = [set1, set2, set3]
         player_sequence = random.sample(orgnl_sequence, len(orgnl_sequence))
-        player_prospects = player_sequence[0].append(player_sequence[1], ignore_index=True).append(player_sequence[2],ignore_index=True)
+        player_prospects = player_sequence[0].append(player_sequence[1], ignore_index=True).append(player_sequence[2],
+                                                                                                   ignore_index=True)
         player_prospects['rounds'] = [self.session.config["rounds"]] * 63
-        self.participant.vars["p_app_sequence"] = player_prospects  # Contains the dataframe for all parameters for all players
-    
+        self.participant.vars[
+            "p_app_sequence"] = player_prospects  # Contains the dataframe for all parameters for all players
+
     def set_player_param(self):
         # round settings
         self.training_round = 1 if self.round_number <= self.session.config["training_rounds"] else 0
@@ -70,28 +73,30 @@ class Player(BasePlayer):
             self.participant.vars["payoff_vector"] = list()
         elif self.round_number == self.session.config["training_rounds"] + 1:
             self.participant.vars["prospect_table"] = Constants.prospects
-                
 
-        #inisiasi untuk tiap blok
+        # inisiasi untuk tiap blok
         if self.round_number >= 1 and self.round_number <= self.session.config["training_rounds"]:
             # randomizer untuk Block Latihan
             rand = sample(list(range(0, 20)), 4)
             rand.append(20)
-        if self.round_number >= self.session.config["training_rounds"] + 1 and self.round_number <= self.session.config["training_rounds"] + 10:
+        if self.round_number >= self.session.config["training_rounds"] + 1 and self.round_number <= self.session.config[
+            "training_rounds"] + 10:
             # randomizer untuk Block 1 dari index 0 s.d index 20 sesuai csv lotere yang di load
             rand = sample(list(range(0, 20)), 4)
             rand.append(20)
-        elif self.round_number >= self.session.config["training_rounds"] + 1 + 10 and self.round_number <= self.session.config["training_rounds"] + 10 + 10:
+        elif self.round_number >= self.session.config["training_rounds"] + 1 + 10 and self.round_number <= \
+                self.session.config["training_rounds"] + 10 + 10:
             # randomizer untuk Block 1 dari index 21 s.d index 41 sesuai csv lotere yang di load
-            rand = sample(list(range(0+21, 20+21)), 4)
-            rand.append(20+21)
-        elif self.round_number >= self.session.config["training_rounds"] + 1 + 10 + 10 and self.round_number <= self.session.config["training_rounds"] + 10 + 10 + 10:
+            rand = sample(list(range(0 + 21, 20 + 21)), 4)
+            rand.append(20 + 21)
+        elif self.round_number >= self.session.config["training_rounds"] + 1 + 10 + 10 and self.round_number <= \
+                self.session.config["training_rounds"] + 10 + 10 + 10:
             # randomizer untuk Block 1 dari index 42 s.d index 62 sesuai csv lotere yang di load
-            rand = sample(list(range(0+21+21, 20+21+21)), 4)
-            rand.append(20+21+21)
+            rand = sample(list(range(0 + 21 + 21, 20 + 21 + 21)), 4)
+            rand.append(20 + 21 + 21)
 
         self.participant.vars["random_indexes"] = rand
-        
+
         self.participant.vars["displayed_lotteries"] = list(
             self.participant.vars["prospect_table"].loc[self.participant.vars["random_indexes"], "Index"])
         self.participant.vars["displayed_prospects"] = self.participant.vars["prospect_table"].loc[
@@ -106,11 +111,14 @@ class Player(BasePlayer):
         print("ori")
         print(self.participant.vars["displayed_prospects"])
         df["Allocation"] = [self.Lotere_A, self.Lotere_B, self.Lotere_C, self.Lotere_D,
-                              self.Lotere_E]  ### df[["Allocation"]] = [0,0,2,1,2]
+                            self.Lotere_E]  ### df[["Allocation"]] = [0,0,2,1,2]
         df["payoff"] = [0, 0, 0, 0, 0]
         for i in self.participant.vars["random_indexes"]:
-            df.loc[i,"A_or_B"] = np.random.choice(["A","B"], p=[df.loc[i,"p1"],df.loc[i,"p2"]])
-            df.loc[i,"payoff"] = df.loc[i,"x1"] * df.loc[i,"Allocation"] if df.loc[i,"A_or_B"] == "A" else df.loc[i,"x2"] * df.loc[i,"Allocation"]
+            df.loc[i, "A_or_B"] = np.random.choice(["A", "B"], p=[df.loc[i, "p1"], df.loc[i, "p2"]])
+            df.loc[i, "payoff"] = df.loc[i, "x1"] * df.loc[i, "Allocation"] if df.loc[i, "A_or_B"] == "A" else df.loc[
+                                                                                                                   i, "x2"] * \
+                                                                                                               df.loc[
+                                                                                                                   i, "Allocation"]
         self.payoff_thisround = int(df[["payoff"]].sum())
         self.payoff = self.payoff_thisround
         if not self.training_round:
@@ -130,20 +138,18 @@ class Player(BasePlayer):
 
     def set_payoff(self):
         self.payiff = self.payoff_thisround
-    
+
     endowment = models.IntegerField()
     player_payoff = models.IntegerField()
     payoff_thisround = models.IntegerField()
     displayed_lotteries = models.StringField()
     training_round = models.BooleanField()
 
-    
     Lotere_A = models.IntegerField(min=0, max=10, initial=0)
     Lotere_B = models.IntegerField(min=0, max=10, initial=0)
     Lotere_C = models.IntegerField(min=0, max=10, initial=0)
     Lotere_D = models.IntegerField(min=0, max=10, initial=0)
     Lotere_E = models.IntegerField(min=0, max=10, initial=0)
-    
 
     ## Vars for questionnaire
 
