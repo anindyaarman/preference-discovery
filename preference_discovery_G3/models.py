@@ -20,7 +20,7 @@ Adaptation of Preference Discovery by Delaney, Jacobson and Moenig (2018) for ri
 """
 
 class Constants(BaseConstants):
-    name_in_url = 'PreferenceDiscovery3'
+    name_in_url = 'PreferenceDiscoveryG3'
     players_per_group = None
     num_rounds = 33
     num_training_rounds = 3
