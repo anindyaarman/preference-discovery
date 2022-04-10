@@ -12,7 +12,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 SESSION_CONFIGS = [
     dict(
-        name='Grup_1',
+        name='preference_discovery',
         display_name='(G1) Preference Discovery',
         num_demo_participants=1,
         app_sequence=['preference_discovery'],
@@ -22,7 +22,7 @@ SESSION_CONFIGS = [
         rounds=33,
     ),
     dict(
-        name='Grup_2',
+        name='preference_discovery_G2',
         display_name='(G2) Preference Discovery',
         num_demo_participants=1,
         app_sequence=['preference_discovery_G2'],
@@ -32,7 +32,7 @@ SESSION_CONFIGS = [
         rounds=63,
     ),
     dict(
-        name='Grup_3',
+        name='preference_discovery_G3',
         display_name='(G3) Preference Discovery',
         num_demo_participants=1,
         app_sequence=['preference_discovery_G3'],
@@ -42,7 +42,7 @@ SESSION_CONFIGS = [
         rounds=33,
     ),
     dict(
-        name='Grup_4',
+        name='preference_discovery_G4',
         display_name='(G4) Preference Discovery',
         num_demo_participants=1,
         app_sequence=['preference_discovery_G4'],
