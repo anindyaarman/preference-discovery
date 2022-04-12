@@ -147,7 +147,7 @@ class Player(BasePlayer):
    
 
     ## Vars for questionnaire
-    s1 = models.IntegerField(label="1) Usia:", min=14, max=35)
+    s1 = models.IntegerField(label="1) Usia:", min=14, max=55)
     s2 = models.IntegerField(choices=[[1,'Laki-laki'],[2,'Perempuan']], label='2) Jenis kelamin Anda')
     s3 = models.IntegerField(choices=[[1,'Diploma 3 (D3)'],[2,'Sarjana (S1/D4)'],[3,'Magister (S2)'],[4,'Doktoral (S3)']], label='3) Tingkat pendidikan yang sedang atau telah Anda ditempuh')
     s4 = models.IntegerField(choices=[[1,'Sekolah/Kuliah'],[2,'Lulus belum bekerja'],[3,'Bekerja']], label='4) Aktivitas utama Anda saat ini')
